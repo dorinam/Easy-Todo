@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row my-4">
+    <div class="col-md-12 text-center">
+      <h1 class="h1-responsive text-white my-5">Easy To-do App</h1>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 offset-md-2 left-column mb-5">
+      <ul class="list-group">
+        <li *ngFor="let category of categories" class="list-group-item d-flex justify-content-between align-items-center" (click)="onSelect(category)">
+          {{category.name}}
+          <span class="badge primary-color badge-pill">{{countAlltodosByCat(category.id)}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-5 list mb-5" *ngIf="selectedCategory; else elseBlock">
+      <div class="row px-3 py-3">
+        <div class="col-md-12">
+          <h4>{{selectedCategory.name}}</h4>
+        </div>
+      </div>
+	  
+      <div class="row px-4 mt-3">
+        <div class="form-group full-width" *ngIf="alltodosForCat.length > 0">
+          <form class="full-width">
+            <div *ngFor="let easytodo of alltodosForCat">
+              <input type="checkbox" id="{{easytodo.id}}" (click)="toggleEasytodoComplete(easytodo)" [checked]="easytodo.complete">&nbsp;
+              <label for="{{easytodo.id}}" [ngClass]="{'strikethrough' : easytodo.complete}">{{easytodo.title}}</label>
+              <button type="button" class="close" aria-label="Close" style="float: right;" (click)="removeEasytodo(easytodo)">
+                <span aria-hidden="true" >&times;</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row px-4 mt-1">
+        <div class="md-form">
+          <form>
+            <a class="prefix">
+              <i class="fa fa-plus prefix text-success" (click)="addEasytodo()"></i>
+            </a>
+            <input mdbActive type="text" id="form2" class="form-control" [(ngModel)]="newEasytodo.title" (keyup.enter)="addEasytodo()" name="addNew" placeholder="Add new task" >
+            <label for="form2"></label>
+          </form>
+        </div>
+      </div>
+    </div>
+	
+    <ng-template #elseBlock>
+      <div class="col-md-5 test 5 list text-center mb-5">
+        <h5 class="pt-4">Choose category from the menu in the left.</h5>
+        <p class="pt-5">You can create a new category by typing the name and pressing the enter or clicking on the 
+          <span class="badge success-color badge-pill mx-1">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </span>
+          button.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+  
+  <!--Footer-->
+    <footer class="text-center text-white font-small">
+        <div class="footer-copyright text-center py-5">
+            <div class="container-fluid">
+                <a class="btn-floating btn-fb waves-light" mdbWavesEffect>
+                    <i class="fa fa-facebook"> </i>
+                </a>
+                <a class="btn-floating ml-1 btn-tw waves-light" mdbWavesEffect>
+                    <i class="fa fa-twitter"> </i>
+                </a>
+                <a class="btn-floating ml-1 btn-gplus waves-light" mdbWavesEffect>
+                     <i class="fa fa-google-plus"> </i>
+                </a>
+                <a href="https://github.com/dorinam" target="_blank" class="btn-floating ml-1 btn-git waves-light text-white" mdbWavesEffect>
+                    <i class="fa fa-github"> </i>
+                </a>
+                <br>    
+					© 2018 Copyright:
+                    <a href="https://www.dorinamihai.tech" class="text-white"> Created by Dorina Mihai </a>
+                    <br>
+                    Based on Bootstrap, Angular &amp; Material Design UI
+            
+            </div>
+        </div>
+    </footer>
+<!-- Footer -->
+</div>
